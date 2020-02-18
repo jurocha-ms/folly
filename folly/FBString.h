@@ -114,7 +114,7 @@ FOLLY_FBSTRING_BEGIN_NAMESPACE
 namespace fbstring_detail {
 
 template <class InIt, class OutIt>
-inline std::pair<InIt, OutIt> copy_n(
+inline std::pair<InIt, OutIt> __cdecl copy_n(
     InIt b,
     typename std::iterator_traits<InIt>::difference_type n,
     OutIt d) {
@@ -125,7 +125,7 @@ inline std::pair<InIt, OutIt> copy_n(
 }
 
 template <class Pod, class T>
-inline void podFill(Pod* b, Pod* e, T c) {
+inline void __cdecl podFill(Pod* b, Pod* e, T c) {
   FBSTRING_ASSERT(b && e && b <= e);
   constexpr auto kUseMemset = sizeof(T) == 1;
   if /* constexpr */ (kUseMemset) {
@@ -158,7 +158,7 @@ inline void podFill(Pod* b, Pod* e, T c) {
  * adaptation outside).
  */
 template <class Pod>
-inline void podCopy(const Pod* b, const Pod* e, Pod* d) {
+inline void __cdecl podCopy(const Pod* b, const Pod* e, Pod* d) {
   FBSTRING_ASSERT(b != nullptr);
   FBSTRING_ASSERT(e != nullptr);
   FBSTRING_ASSERT(d != nullptr);
@@ -172,7 +172,7 @@ inline void podCopy(const Pod* b, const Pod* e, Pod* d) {
  * some asserts
  */
 template <class Pod>
-inline void podMove(const Pod* b, const Pod* e, Pod* d) {
+inline void __cdecl podMove(const Pod* b, const Pod* e, Pod* d) {
   FBSTRING_ASSERT(e >= b);
   memmove(d, b, (e - b) * sizeof(*b));
 }

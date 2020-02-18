@@ -640,7 +640,7 @@ FOLLY_MSVC_DISABLE_WARNING(4388) // sign-compare
 FOLLY_MSVC_DISABLE_WARNING(4804) // bool-compare
 
 template <typename RHS, RHS rhs, typename LHS>
-bool less_than_impl(LHS const lhs) {
+bool __cdecl less_than_impl(LHS const lhs) {
   // clang-format off
   return
       rhs > std::numeric_limits<LHS>::max() ? true :
@@ -650,7 +650,7 @@ bool less_than_impl(LHS const lhs) {
 }
 
 template <typename RHS, RHS rhs, typename LHS>
-bool greater_than_impl(LHS const lhs) {
+bool __cdecl greater_than_impl(LHS const lhs) {
   // clang-format off
   return
       rhs > std::numeric_limits<LHS>::max() ? false :
@@ -665,36 +665,36 @@ FOLLY_POP_WARNING
 
 // same as `x < 0`
 template <typename T>
-constexpr bool is_negative(T x) {
+constexpr bool __cdecl is_negative(T x) {
   return std::is_signed<T>::value && x < T(0);
 }
 
 // same as `x <= 0`
 template <typename T>
-constexpr bool is_non_positive(T x) {
+constexpr bool __cdecl is_non_positive(T x) {
   return !x || folly::is_negative(x);
 }
 
 // same as `x > 0`
 template <typename T>
-constexpr bool is_positive(T x) {
+constexpr bool __cdecl is_positive(T x) {
   return !is_non_positive(x);
 }
 
 // same as `x >= 0`
 template <typename T>
-constexpr bool is_non_negative(T x) {
+constexpr bool __cdecl is_non_negative(T x) {
   return !x || is_positive(x);
 }
 
 template <typename RHS, RHS rhs, typename LHS>
-bool less_than(LHS const lhs) {
+bool __cdecl less_than(LHS const lhs) {
   return detail::
       less_than_impl<RHS, rhs, typename std::remove_reference<LHS>::type>(lhs);
 }
 
 template <typename RHS, RHS rhs, typename LHS>
-bool greater_than(LHS const lhs) {
+bool __cdecl greater_than(LHS const lhs) {
   return detail::
       greater_than_impl<RHS, rhs, typename std::remove_reference<LHS>::type>(
           lhs);

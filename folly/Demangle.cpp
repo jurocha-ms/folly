@@ -108,17 +108,17 @@ size_t demangle(const char* name, char* out, size_t outSize) {
 
 #else
 
-fbstring demangle(const char* name) {
+fbstring __cdecl demangle(const char* name) {
   return name;
 }
 
-size_t demangle(const char* name, char* out, size_t outSize) {
+size_t __cdecl demangle(const char* name, char* out, size_t outSize) {
   return folly::strlcpy(out, name, outSize);
 }
 
 #endif
 
-size_t strlcpy(char* dest, const char* const src, size_t size) {
+size_t __cdecl strlcpy(char* dest, const char* const src, size_t size) {
   size_t len = strlen(src);
   if (size != 0) {
     size_t n = std::min(len, size - 1); // always null terminate!
