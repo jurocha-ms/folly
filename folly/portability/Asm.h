@@ -25,7 +25,7 @@
 #endif
 
 namespace folly {
-inline void asm_volatile_memory() {
+inline void __cdecl asm_volatile_memory() {
 #if defined(__GNUC__)
   asm volatile("" : : : "memory");
 #elif defined(_MSC_VER)
@@ -33,7 +33,7 @@ inline void asm_volatile_memory() {
 #endif
 }
 
-inline void asm_volatile_pause() {
+inline void __cdecl asm_volatile_pause() {
 #if defined(_MSC_VER) && (defined(_M_IX86) || defined(_M_X64))
   ::_mm_pause();
 #elif defined(__i386__) || FOLLY_X64
